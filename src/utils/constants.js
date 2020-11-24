@@ -6,10 +6,10 @@ const LIVE_STATUS = {
 };
 
 const videoConfig = {
-  preset: 1,
-  bitrate: 500000,
+  preset: 4,
+  bitrate: 2500000,
   profile: 1,
-  fps: 15,
+  fps: 30,
   videoFrontMirror: false,
 };
 

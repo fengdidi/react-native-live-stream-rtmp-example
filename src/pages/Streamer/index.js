@@ -105,15 +105,17 @@ export default class Streamer extends React.Component {
       /**
        * Waiting live stream
        */
-      SocketManager.instance.emitBeginLiveStream({ userName, roomName: userName });
-      SocketManager.instance.emitJoinRoom({ userName, roomName: userName });
-      if (this.nodeCameraViewRef) this.nodeCameraViewRef.start();
+      // SocketManager.instance.emitBeginLiveStream({ userName, roomName: userName });
+      // SocketManager.instance.emitJoinRoom({ userName, roomName: userName });
+      this.setState({ currentLiveStatus: LIVE_STATUS.ON_LIVE});
+      this.nodeCameraViewRef.start();
     } else if (Number(currentLiveStatus) === Number(LIVE_STATUS.ON_LIVE)) {
       /**
        * Finish live stream
        */
       SocketManager.instance.emitFinishLiveStream({ userName, roomName: userName });
-      if (this.nodeCameraViewRef) this.nodeCameraViewRef.stop();
+      this.nodeCameraViewRef.stop();
+      this.setState({ currentLiveStatus: LIVE_STATUS.PREPARE});
       Alert.alert(
         'Alert ',
         'Thanks for your live stream',
@@ -182,7 +184,9 @@ export default class Streamer extends React.Component {
     const { route } = this.props;
     const { currentLiveStatus, countHeart } = this.state;
     const userName = get(route, 'params.userName', '');
-    const outputUrl = `${RTMP_SERVER}/live/${userName}`;
+    const outputUrl = `${RTMP_SERVER}/test1/${userName}`;
+    console.log("********************* output url *********************")
+    console.log(outputUrl)
     return (
       <SafeAreaView style={styles.container}>
         <NodeCameraView
